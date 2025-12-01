@@ -1,0 +1,29 @@
+{
+  "name": "gptracker",
+  "version": "1.0.0",
+  "description": "Gastroparesis Tracker - Track meals and symptoms to correlate food with health",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "server": "node server/index.js",
+    "client": "npm run dev --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "npm run build --prefix client",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "health",
+    "tracker",
+    "meals",
+    "symptoms",
+    "gastroparesis"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^9.2.1",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "uuid": "^13.0.0"
+  }
+}

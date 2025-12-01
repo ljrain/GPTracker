@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Daily Log",
+  "description": "A daily log entry for tracking food consumption and symptoms for gastroparesis management",
+  "type": "object",
+  "required": ["date", "foods", "symptoms"],
+  "properties": {
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "The date of the log entry in ISO 8601 format (YYYY-MM-DD)"
+    },
+    "foods": {
+      "type": "array",
+      "description": "List of food items consumed during the day",
+      "items": {
+        "type": "object",
+        "required": ["name", "time"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the food item"
+          },
+          "time": {
+            "type": "string",
+            "format": "time",
+            "description": "Time the food was consumed (HH:MM)"
+          },
+          "amount": {
+            "type": "string",
+            "description": "Quantity or portion size of the food"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["solid", "liquid", "soft", "pureed"],
+            "description": "Food texture category"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes about the food item"
+          }
+        }
+      }
+    },
+    "symptoms": {
+      "type": "array",
+      "description": "List of symptoms experienced during the day",
+      "items": {
+        "type": "object",
+        "required": ["name", "severity"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name or type of symptom"
+          },
+          "severity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10,
+            "description": "Severity of the symptom on a scale of 1-10"
+          },
+          "time": {
+            "type": "string",
+            "format": "time",
+            "description": "Time the symptom occurred or was noticed (HH:MM)"
+          },
+          "duration": {
+            "type": "string",
+            "description": "How long the symptom lasted"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes about the symptom"
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "General notes for the day"
+    }
+  }
+}

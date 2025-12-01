@@ -1,0 +1,50 @@
+{
+  "date": "2024-01-15",
+  "foods": [
+    {
+      "name": "Oatmeal",
+      "time": "08:00",
+      "amount": "1/2 cup",
+      "category": "soft",
+      "notes": "Made with water, easy to digest"
+    },
+    {
+      "name": "Chicken broth",
+      "time": "12:30",
+      "amount": "1 cup",
+      "category": "liquid",
+      "notes": "Low sodium"
+    },
+    {
+      "name": "Mashed potatoes",
+      "time": "18:00",
+      "amount": "1/4 cup",
+      "category": "pureed",
+      "notes": "No butter, plain"
+    }
+  ],
+  "symptoms": [
+    {
+      "name": "Nausea",
+      "severity": 4,
+      "time": "09:30",
+      "duration": "45 minutes",
+      "notes": "Occurred after breakfast"
+    },
+    {
+      "name": "Bloating",
+      "severity": 6,
+      "time": "14:00",
+      "duration": "2 hours",
+      "notes": "Felt full even with small meal"
+    },
+    {
+      "name": "Abdominal pain",
+      "severity": 3,
+      "time": "19:00",
+      "duration": "30 minutes",
+      "notes": "Mild discomfort after dinner"
+    }
+  ],
+  "notes": "Overall a manageable day. Drinking more fluids seemed to help."
+}

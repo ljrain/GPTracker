@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
@@ -9,35 +9,26 @@ function App() {
   const [symptomSeverity, setSymptomSeverity] = useState('medium')
   const [symptomDescription, setSymptomDescription] = useState('')
   const [activeTab, setActiveTab] = useState('timeline')
-
-  const fetchTimeline = useCallback(async () => {
-    try {
-      const response = await fetch('/api/timeline')
-      const data = await response.json()
-      setTimeline(data)
-    } catch (error) {
-      console.error('Error fetching timeline:', error)
-    }
-  }, [])
+  const [refreshKey, setRefreshKey] = useState(0)
 
   useEffect(() => {
-    let ignore = false
-    const loadTimeline = async () => {
-      try {
-        const response = await fetch('/api/timeline')
-        const data = await response.json()
-        if (!ignore) {
-          setTimeline(data)
+    const abortController = new AbortController()
+    fetch('/api/timeline', { signal: abortController.signal })
+      .then(response => response.json())
+      .then(data => setTimeline(data))
+      .catch(error => {
+        if (error.name !== 'AbortError') {
+          console.error('Error fetching timeline:', error)
         }
-      } catch (error) {
-        console.error('Error fetching timeline:', error)
-      }
-    }
-    loadTimeline()
+      })
     return () => {
-      ignore = true
+      abortController.abort()
     }
-  }, [])
+  }, [refreshKey])
+
+  const refreshTimeline = () => {
+    setRefreshKey(prev => prev + 1)
+  }
 
   const handleAddMeal = async (e) => {
     e.preventDefault()
@@ -51,7 +42,7 @@ function App() {
       if (response.ok) {
         setMealName('')
         setMealDescription('')
-        fetchTimeline()
+        refreshTimeline()
       }
     } catch (error) {
       console.error('Error adding meal:', error)
@@ -75,7 +66,7 @@ function App() {
         setSymptomName('')
         setSymptomSeverity('medium')
         setSymptomDescription('')
-        fetchTimeline()
+        refreshTimeline()
       }
     } catch (error) {
       console.error('Error adding symptom:', error)
@@ -89,7 +80,7 @@ function App() {
         method: 'DELETE'
       })
       if (response.ok) {
-        fetchTimeline()
+        refreshTimeline()
       }
     } catch (error) {
       console.error('Error deleting item:', error)
